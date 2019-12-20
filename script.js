@@ -51,22 +51,37 @@ var moveBoxes = function(){
      }
       console.log( letterBoxes[0].style.left);
 }
-
-var myMove = function () {
-
-  var pos = 0;
-  var id = setInterval(frame, 5);
-  function frame() {
-    if (pos == 350) {
-      clearInterval(id);
+var pos = 0;
+var moving = function() {
+    if (pos === 1000) {
+      clearInterval(this);
     } else {
       pos++;
-          for(var i = 0; i< letterBoxes.length ; i ++){
-      letterBoxes[i].style.left = pos + 'px';
-  }
+      for(var i = 0; i< letterBoxes.length ; i ++){
+        letterBoxes[i].style.left = pos + 'px';
+      }
     }
   }
-}
-setInterval(myMove,2000);
+setInterval(moving, 5);
+var createLetterBox = function(){
+    var box = document.createElement('div');
+    var row = document.querySelector('.row');
 
-// setInterval(moveBoxes,200);
+    box.innerHTML = letters[2];
+    box.addEventListener('click',checkLetter);
+    box.classList.add("letterBox");
+    row.appendChild(box);
+}
+
+var creatingBox = setInterval(createLetterBox, 1000);
+// setInterval(myMove,2000);
+setInterval(creatingBox, 100);
+
+
+
+setInterval(function()
+{
+    if(letterBoxes.length >= 7){
+          clearInterval(creatingBox);
+    }
+},3000);
