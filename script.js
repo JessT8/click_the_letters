@@ -16,7 +16,20 @@ var checkLetter = function(){
         displayClicked.innerText += wordArray.shift();
         displayLettersLeft.innerText = wordArray.join("");
       }
+      var displayEndGame = endGame();
+      if(displayEndGame){
+        alert("You won!");
+      }
       return correctLetter;
+}
+
+var endGame = function() {
+    var gameEnded = false;
+    //when word array is empty
+    if(wordArray.length === 0){
+        gameEnded = true;
+    }
+    return gameEnded;
 }
 
 //add letters and click events to letter box
