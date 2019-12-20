@@ -64,14 +64,18 @@ var createLetterBox = function(){
 var moving = function() {
    for(var i = 0; i< letterBoxes.length ; i ++){
         if (pos[i] === 878) {
-        var randomLetter = Math.floor(Math.random()*letters.length);
-        pos[i]=0;
+            var randomLetter = Math.floor(Math.random()*letters.length);
+            pos[i]=0;
+            //ensure that there is at least 1 letter that matches the current letters needed to be clicked
+            if(i === 0){
+                letterBoxes[i].innerHTML = wordArray[0].toUpperCase();
+            }
         } else {
                 pos[i]++;
                 letterBoxes[i].style.left = pos[i] + 'px';
             }
-            if(pos[i]===0){
-                        letterBoxes[i].innerHTML = letters[randomLetter];
+            if(pos[i]===0 && i !== 0){
+               letterBoxes[i].innerHTML = letters[randomLetter];
             }
     }
   }
