@@ -1,10 +1,11 @@
 //Global Variables
-var word = "abcd";
+var word = "something";
 var letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
 var wordArray = word.split("");
 var letterBoxes = document.querySelectorAll(".letterBox");
 var word = document.querySelectorAll(".letterBox");
 var pos = [];
+
 
 //win condition
 var checkLetter = function(){
@@ -33,19 +34,24 @@ var endGame = function() {
     return gameEnded;
 }
 
-//add letters and click events to letter box
-var addLetterBoxesProperties = function(){
-     for(var i = 0; i< letterBoxes.length ; i ++){
-        pos.push(0);
-        letterBoxes[i].innerHTML = letters[i];
-         letterBoxes[i].addEventListener('click',checkLetter);
-     }
+
+var createLetterBox = function(){
+    var box = document.createElement('div');
+    var row = document.querySelector('.row');
+    pos.push(0);
+    var randomLetter = Math.floor(Math.random()*letters.length);
+    box.innerHTML = letters[randomLetter];
+    box.addEventListener('click',checkLetter);
+    box.className = "letterBox";
+    row.appendChild(box);
+    letterBoxes = document.querySelectorAll(".letterBox");
 }
-addLetterBoxesProperties();
 
 var moving = function() {
    for(var i = 0; i< letterBoxes.length ; i ++){
-        if (pos[i] === 1000) {
+        if (pos[i] === 900) {
+        var randomLetter = Math.floor(Math.random()*letters.length);
+        letterBoxes[i].innerHTML = letters[randomLetter];
           pos[i]=0;
         } else {
                 pos[i]++;
@@ -55,26 +61,14 @@ var moving = function() {
   }
 
  setInterval(moving, 5);
-var createLetterBox = function(){
-    var box = document.createElement('div');
-    var row = document.querySelector('.row');
-    pos.push(0);
-    box.innerHTML = letters[2];
-    box.addEventListener('click',checkLetter);
-    box.className = "letterBox";
-    row.appendChild(box);
-    letterBoxes = document.querySelectorAll(".letterBox");
-}
 
-var creatingBox = setInterval(createLetterBox, 1500);
-// setInterval(myMove,2000);
-setInterval(creatingBox, 100);
-
-
-
+var creatingBox = setInterval(createLetterBox, 750);
+// create box
 setInterval(function()
 {
-    if(letterBoxes.length >= 7){
+    if(letterBoxes.length >= 6){
           clearInterval(creatingBox);
     }
-},3000);
+},500);
+
+setInterval(creatingBox, 100);
