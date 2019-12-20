@@ -40,3 +40,33 @@ var addLetterBoxesProperties = function(){
      }
 }
 addLetterBoxesProperties();
+
+var moveBoxes = function(){
+    for(var i = 0; i< letterBoxes.length ; i ++){
+        /*getBoundClientRect return the size of an element and its position relative to the viewport*/
+        var currentPosition = parseInt(letterBoxes[i].style.left);
+        var amountToMove = 50
+       letterBoxes[i].style.left = currentPosition + amountToMove + "px";
+// letterBoxes[i].style.backgroundColor = "blue";
+     }
+      console.log( letterBoxes[0].style.left);
+}
+
+var myMove = function () {
+
+  var pos = 0;
+  var id = setInterval(frame, 5);
+  function frame() {
+    if (pos == 350) {
+      clearInterval(id);
+    } else {
+      pos++;
+          for(var i = 0; i< letterBoxes.length ; i ++){
+      letterBoxes[i].style.left = pos + 'px';
+  }
+    }
+  }
+}
+setInterval(myMove,2000);
+
+// setInterval(moveBoxes,200);
