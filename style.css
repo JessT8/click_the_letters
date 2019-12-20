@@ -18,9 +18,9 @@
 	   justify-content: center;
 	   align-items: center;
 }
-.lettersClicked{
+#lettersClicked{
 	color:blue;
 }
-.lettersLeft{
+#lettersLeft{
 
 }
