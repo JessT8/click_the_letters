@@ -4,6 +4,7 @@ var letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 
 var wordArray = word.split("");
 var letterBoxes = document.querySelectorAll(".letterBox");
 var word = document.querySelectorAll(".letterBox");
+var pos = [];
 
 //win condition
 var checkLetter = function(){
@@ -35,45 +36,37 @@ var endGame = function() {
 //add letters and click events to letter box
 var addLetterBoxesProperties = function(){
      for(var i = 0; i< letterBoxes.length ; i ++){
+        pos.push(0);
         letterBoxes[i].innerHTML = letters[i];
          letterBoxes[i].addEventListener('click',checkLetter);
      }
 }
 addLetterBoxesProperties();
 
-var moveBoxes = function(){
-    for(var i = 0; i< letterBoxes.length ; i ++){
-        /*getBoundClientRect return the size of an element and its position relative to the viewport*/
-        var currentPosition = parseInt(letterBoxes[i].style.left);
-        var amountToMove = 50
-       letterBoxes[i].style.left = currentPosition + amountToMove + "px";
-// letterBoxes[i].style.backgroundColor = "blue";
-     }
-      console.log( letterBoxes[0].style.left);
-}
-var pos = 0;
 var moving = function() {
-    if (pos === 1000) {
-      clearInterval(this);
-    } else {
-      pos++;
-      for(var i = 0; i< letterBoxes.length ; i ++){
-        letterBoxes[i].style.left = pos + 'px';
-      }
+   for(var i = 0; i< letterBoxes.length ; i ++){
+        if (pos[i] === 1000) {
+          clearInterval(this);
+        } else {
+                pos[i]++;
+                letterBoxes[i].style.left = pos[i] + 'px';
+            }
     }
   }
-setInterval(moving, 5);
+
+ setInterval(moving, 5);
 var createLetterBox = function(){
     var box = document.createElement('div');
     var row = document.querySelector('.row');
-
+    pos.push(0);
     box.innerHTML = letters[2];
     box.addEventListener('click',checkLetter);
-    box.classList.add("letterBox");
+    box.className = "letterBox";
     row.appendChild(box);
+    letterBoxes = document.querySelectorAll(".letterBox");
 }
 
-var creatingBox = setInterval(createLetterBox, 1000);
+var creatingBox = setInterval(createLetterBox, 1500);
 // setInterval(myMove,2000);
 setInterval(creatingBox, 100);
 
