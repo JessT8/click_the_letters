@@ -10,9 +10,11 @@
 	margin: 90px auto;
 }
 .letterBox{
-	display: inline-block;
+     display: inline-flex;
 	   width: 100px;
 	   height: 100px;
 	   border: 1px solid black;
 	   margin: 0 18px;
+	   justify-content: center;
+	   align-items: center;
 }
