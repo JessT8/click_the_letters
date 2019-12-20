@@ -46,7 +46,7 @@ addLetterBoxesProperties();
 var moving = function() {
    for(var i = 0; i< letterBoxes.length ; i ++){
         if (pos[i] === 1000) {
-          clearInterval(this);
+          pos[i]=0;
         } else {
                 pos[i]++;
                 letterBoxes[i].style.left = pos[i] + 'px';
