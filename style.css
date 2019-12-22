@@ -34,7 +34,7 @@
 .hide{
 	display: none;
 }
-.startPage{
+#startPage{
 	padding-top: 200px;
 	padding-bottom: 200px;
  margin: 50px;
