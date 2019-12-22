@@ -7,6 +7,7 @@ var letters = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','
 var wordArray = [];
 var letterBoxes = document.querySelectorAll(".letterBox");
 var word = document.querySelectorAll(".letterBox");
+var row = document.querySelector('.row');
 var pos = [];
 
 
@@ -24,7 +25,7 @@ var checkLetter = function(){
         correctLetter = true;
         displayClicked.innerText += wordArray.shift();
         displayLettersLeft.innerText = wordArray.join("");
-        // this.style.backgroundcolor = "Grey";
+         this.innerText = "";
       }
       var displayEndGame = endGame();
       if(displayEndGame){
@@ -33,33 +34,29 @@ var checkLetter = function(){
       return correctLetter;
 }
 
-var endGame = function() {
-    var gameEnded = false;
-    //when word array is empty
-    if(wordArray.length === 0){
-        listOfWords.shift();
-        //when all words entered
-        if(listOfWords.length === 0)
-        gameEnded = true;
+
+//create the letters at an interval
+var createLetters = function(){
+
+    //create every 725 miliseconds
+    var id = setInterval(creatingLetter, 725);
+
+    function creatingLetter(){
+        //clear when created 6 div to use and reuse
+        if(letterBoxes.length >= 6){
+              clearInterval(id);
+        }
         else{
-            displayClicked.innerText= "";
-            displayText();
+            var box = document.createElement('div');
+            pos.push(0);
+            var randomLetter = Math.floor(Math.random()*letters.length);
+            box.innerHTML = letters[randomLetter];
+            box.addEventListener('click',checkLetter);
+            box.className = "letterBox";
+            row.appendChild(box);
+            letterBoxes = document.querySelectorAll(".letterBox");
         }
     }
-    return gameEnded;
-}
-
-
-var createLetterBox = function(){
-    var box = document.createElement('div');
-    var row = document.querySelector('.row');
-    pos.push(0);
-    var randomLetter = Math.floor(Math.random()*letters.length);
-    box.innerHTML = letters[randomLetter];
-    box.addEventListener('click',checkLetter);
-    box.className = "letterBox";
-    row.appendChild(box);
-    letterBoxes = document.querySelectorAll(".letterBox");
 }
 var moving = function() {
    for(var i = 0; i< letterBoxes.length ; i ++){
@@ -80,15 +77,35 @@ var moving = function() {
     }
   }
 
- setInterval(moving, 5);
+ var moveBox = setInterval(moving, 5);
 
-var creatingBox = setInterval(createLetterBox, 725);
-// create box
-setInterval(function()
-{
-    if(letterBoxes.length >= 6){
-          clearInterval(creatingBox);
+
+
+
+var endGame = function() {
+    var gameEnded = false;
+    //when word array is empty
+    if(wordArray.length === 0){
+        listOfWords.shift();
+        //when all words entered
+        if(listOfWords.length === 0){
+               gameEnded = true;
+              clearInterval(moveBox);
+              row.innerHTML = "";
+              listOfWords = ["One","Two","Three","Four","Five"];
+              word = "";
+
+          }
+        else{
+            displayClicked.innerText= "";
+            displayText();
+
+        }
     }
-},500);
+    return gameEnded;
+}
 
-setInterval(creatingBox, 300);
+//Create box
+createLetters();
+
+/*https://api.wordnik.com/v4/words.json/randomWords?hasDictionaryDef=true&maxCorpusCount=-1&minDictionaryCount=1&maxDictionaryCount=-1&minLength=5&maxLength=5&limit=10&api_key=YOURAPIKEY*/
