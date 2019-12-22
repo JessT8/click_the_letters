@@ -1,5 +1,6 @@
 //Global Variables
-var listOfWords = ["One","Two","Three","Four","Five"];
+//var listOfWords = ["One","Two","Three","Four","Five"];
+var listOfWords = ["O"]
 var word = "";
 var displayLettersLeft = document.querySelector("#lettersLeft");
 var displayClicked = document.querySelector("#lettersClicked");
@@ -30,6 +31,7 @@ var checkLetter = function(){
       var displayEndGame = endGame();
       if(displayEndGame){
         alert("You won!");
+        startEvent();
       }
       return correctLetter;
 }
@@ -58,7 +60,8 @@ var createLetters = function(){
         }
     }
 }
-var moving = function() {
+
+var movingAnimation = function() {
    for(var i = 0; i< letterBoxes.length ; i ++){
         if (pos[i] === 878) {
             var randomLetter = Math.floor(Math.random()*letters.length);
@@ -77,11 +80,9 @@ var moving = function() {
     }
   }
 
- var moveBox = setInterval(moving, 5);
+ var moveBox = setInterval(movingAnimation, 5);
 
-
-
-
+//end game when all letters have been entered
 var endGame = function() {
     var gameEnded = false;
     //when word array is empty
@@ -104,8 +105,60 @@ var endGame = function() {
     }
     return gameEnded;
 }
+     var display = document.querySelector("#gameStarted");
+     var startPage = document.querySelector("#startPage");
+var startGame= function(){
 
-//Create box
-createLetters();
+     startPage.classList.add("hide");
+     display.classList.remove("hide");
+    createLetters();
+}
+var startEvent = function(){
+    var startButton = document.querySelector("#startButton");
+    startButton.addEventListener("click",startGame);
+     startPage.classList.remove("hide");
+     display.classList.add("hide");
+}
+startEvent();
 
-/*https://api.wordnik.com/v4/words.json/randomWords?hasDictionaryDef=true&maxCorpusCount=-1&minDictionaryCount=1&maxDictionaryCount=-1&minLength=5&maxLength=5&limit=10&api_key=YOURAPIKEY*/
+
+
+
+
+
+
+
+
+
+//API REQUIRES API KEY THAT WILL ONLY BE AVAILABLE 7 DAYS LATER! DO LATER!
+// var responseHandler = function() {
+//   console.log("response text", this.responseText);
+//   var response = JSON.parse( this.responseText );
+//    console.log( response );
+// };
+
+// var requestFailed = function(){
+//   console.log("response text", this.responseText);
+//   console.log("status text", this.statusText);
+//   console.log("status code", this.status);
+// };
+
+// var doSubmit = function(event){
+//     var input = document.querySelector('#url');
+//     var  url = "https://api.wordnik.com/v4/words.json/randomWords?hasDictionaryDef=true&maxCorpusCount=-1&minDictionaryCount=1&maxDictionaryCount=-1&minLength="+5+"&maxLength="+5+"&limit=10";//&api_key=YOURAPIKEY";
+
+//         // make a new request
+//     var request = new XMLHttpRequest();
+
+//     // listen for the request response
+//     request.addEventListener("load", responseHandler);
+//     request.addEventListener("error", requestFailed);
+
+//     // ready the system by calling open, and specifying the url
+//     request.open("GET", url);
+
+//     // send the request
+//     request.send();
+// }
+
+// doSubmit();
