@@ -1,7 +1,6 @@
 .container{
    margin: 0 auto;
    width : 1000px;
-   border: 1px solid black;
    	font-family: 'Montserrat', sans-serif;
 }
 .center{
@@ -31,4 +30,13 @@
 }
 #lettersLeft{
 
+}
+.hide{
+	display: none;
+}
+.startPage{
+	padding-top: 200px;
+	padding-bottom: 200px;
+ margin: 50px;
+ border: 1px solid black;
 }
