@@ -4,13 +4,33 @@ var listOfWords = ["O"]
 var word = "";
 var displayLettersLeft = document.querySelector("#lettersLeft");
 var displayClicked = document.querySelector("#lettersClicked");
+var startButton = document.querySelector("#startButton");
+var display = document.querySelector("#gameStarted");
+var startPage = document.querySelector("#startPage");
+var startingHeader = document.querySelector("#startingHeader");
 var letters = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
 var wordArray = [];
-var letterBoxes = document.querySelectorAll(".letterBox");
-var word = document.querySelectorAll(".letterBox");
-var row = document.querySelector('.row');
-var pos = [];
+var movingLetters;
+var row;
+var pos;
 
+//variable to stop time based code
+var stop;
+
+var setGlobalVariable = function(){
+    listOfWords = ["O"];
+    wordArray = [];
+    displayClicked.innerText = "";
+    word = "";
+    row = document.querySelector('.row');
+    row.innerHTML = "";
+    row.classList.add("hide");
+    pos = [];
+    movingLetters = document.querySelectorAll(".letters");
+    stop = true;
+}
+
+setGlobalVariable();
 
 var displayText = function(){
     word = listOfWords[0];
@@ -31,35 +51,22 @@ var checkLetter = function(){
       var displayEndGame = endGame();
       if(displayEndGame){
         startEvent();
+        startingHeader.innerText = "You won!\nPlay again?"
       }
       return correctLetter;
 }
 
-
-//create the letters at an interval
-var createLetters = function(){
-
-    //create every 725 milliseconds
-    var id = setInterval(creatingLetter, 725);
-
-    function creatingLetter(){
-        //clear when created 6 div to use and reuse
-        if(letterBoxes.length >= 6){
-              clearInterval(id);
-        }
-        else{
+var createLetterDiv = function(){
             var box = document.createElement('div');
             pos.push(0);
             var randomLetter = Math.floor(Math.random()*letters.length);
             box.innerHTML = letters[randomLetter];
             box.addEventListener('click',checkLetter);
-            box.className = "letterBox";
+            box.className = "letters";
             row.appendChild(box);
-            letterBoxes = document.querySelectorAll(".letterBox");
-        }
-    }
+            //update global variable
+            movingLetters = document.querySelectorAll(".letters");
 }
-
 //end game when all letters have been entered
 var endGame = function() {
     var gameEnded = false;
@@ -78,28 +85,44 @@ var endGame = function() {
     }
     return gameEnded;
 }
-     var display = document.querySelector("#gameStarted");
-     var startPage = document.querySelector("#startPage");
-var stop = false;
-     var moveLetter = function(){
+//create the letters at an interval
+var createLetters = function(){
+
+    //create every 725 milliseconds
+    var id = setInterval(creatingLetter, 725);
+
+    function creatingLetter(){
+        //clear when created 6 div to use and reuse
+        if(movingLetters.length >= 6 || stop){
+              clearInterval(id);
+              console.log(stop);
+        }
+        else{
+            createLetterDiv();
+            console.log("creating");
+        }
+    }
+}
+
+var moveLetter = function(){
 
         var id =  setInterval(movingAnimation, 5);
         function movingAnimation() {
             if(!stop){
-                  for(var i = 0; i< letterBoxes.length ; i ++){
+                  for(var i = 0; i< movingLetters.length ; i ++){
                     if (pos[i] === 878) {
                         var randomLetter = Math.floor(Math.random()*letters.length);
                         pos[i]=0;
                         //ensure that there is at least 1 letter that matches the current letters needed to be clicked
                         if(i === 0){
-                            letterBoxes[i].innerHTML = wordArray[0].toUpperCase();
+                            movingLetters[i].innerHTML = wordArray[0].toUpperCase();
                         }
                     } else {
                             pos[i]++;
-                            letterBoxes[i].style.left = pos[i] + 'px';
+                            movingLetters[i].style.left = pos[i] + 'px';
                         }
                         if(pos[i]===0 && i !== 0){
-                           letterBoxes[i].innerHTML = letters[randomLetter];
+                           movingLetters[i].innerHTML = letters[randomLetter];
                         }
                 }
                 }
@@ -110,29 +133,20 @@ var stop = false;
         }
 var startGame= function(){
 
-     startPage.classList.add("hide");
-     display.classList.remove("hide");
-     row.classList.remove("hide");
+    startPage.classList.add("hide");
+    display.classList.remove("hide");
+    row.classList.remove("hide");
     createLetters();
     stop = false;
     moveLetter();
 }
-    var startButton = document.querySelector("#startButton");
-    startButton.addEventListener("click",startGame);
+startButton.addEventListener("click",startGame);
+
 var startEvent = function(){
      startPage.classList.remove("hide");
      display.classList.add("hide");
-   row.innerHTML = "";
-     letterBoxes = document.querySelectorAll(".letterBox");
-     listOfWords = ["O"];
-     displayClicked.innerText = "";
-     stop = true;
-     row.classList.add("hide");
-     listOfWords = ["O"];
-     word = "";
+     setGlobalVariable();
      displayText();
-          pos = [];
-
 
 }
 startEvent();
