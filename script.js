@@ -1,24 +1,29 @@
 //Global Variables
-//var listOfWords = ["One","Two","Three","Four","Five"];
-var listOfWords = ["O"]
+var listOfWords;
 var word = "";
-var displayLettersLeft = document.querySelector("#lettersLeft");
-var displayClicked = document.querySelector("#lettersClicked");
-var startButton = document.querySelector("#startButton");
-var display = document.querySelector("#gameStarted");
-var startPage = document.querySelector("#startPage");
-var startingHeader = document.querySelector("#startingHeader");
 var letters = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
 var wordArray = [];
+
+var startButton = document.querySelector("#startButton");
+var startPage = document.querySelector("#startPage");
+var startingHeader = document.querySelector("#startingHeader");
+
+var displayLettersLeft = document.querySelector("#lettersLeft");
+var displayClicked = document.querySelector("#lettersClicked");
+var display = document.querySelector("#gameStarted");
+
 var movingLetters;
 var row;
 var pos;
 
+var time;
 //variable to stop time based code
 var stop;
 
+
 var setGlobalVariable = function(){
-    listOfWords = ["O"];
+
+    listOfWords = ["Cat","Dog","Key"];
     wordArray = [];
     displayClicked.innerText = "";
     word = "";
@@ -28,6 +33,7 @@ var setGlobalVariable = function(){
     pos = [];
     movingLetters = document.querySelectorAll(".letters");
     stop = true;
+    time = 60;
 }
 
 setGlobalVariable();
@@ -139,6 +145,7 @@ var startGame= function(){
     createLetters();
     stop = false;
     moveLetter();
+    timer();
 }
 startButton.addEventListener("click",startGame);
 
@@ -149,8 +156,20 @@ var startEvent = function(){
      displayText();
 
 }
-startEvent();
 
+var timer = function(){
+    var id = setInterval(timePassed, 1000)
+    function timePassed(){
+        if(time === 0 || stop){
+            clearInterval(id);
+        }else{
+        time--;
+        var displayTime = document.querySelector("#timerDisplay");
+        displayTime.innerText = time;
+       }
+    }
+}
+startEvent();
 
 
 
