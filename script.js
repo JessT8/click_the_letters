@@ -30,7 +30,6 @@ var checkLetter = function(){
       }
       var displayEndGame = endGame();
       if(displayEndGame){
-        alert("You won!");
         startEvent();
       }
       return correctLetter;
@@ -40,7 +39,7 @@ var checkLetter = function(){
 //create the letters at an interval
 var createLetters = function(){
 
-    //create every 725 miliseconds
+    //create every 725 milliseconds
     var id = setInterval(creatingLetter, 725);
 
     function creatingLetter(){
@@ -61,27 +60,6 @@ var createLetters = function(){
     }
 }
 
-var movingAnimation = function() {
-   for(var i = 0; i< letterBoxes.length ; i ++){
-        if (pos[i] === 878) {
-            var randomLetter = Math.floor(Math.random()*letters.length);
-            pos[i]=0;
-            //ensure that there is at least 1 letter that matches the current letters needed to be clicked
-            if(i === 0){
-                letterBoxes[i].innerHTML = wordArray[0].toUpperCase();
-            }
-        } else {
-                pos[i]++;
-                letterBoxes[i].style.left = pos[i] + 'px';
-            }
-            if(pos[i]===0 && i !== 0){
-               letterBoxes[i].innerHTML = letters[randomLetter];
-            }
-    }
-  }
-
- var moveBox = setInterval(movingAnimation, 5);
-
 //end game when all letters have been entered
 var endGame = function() {
     var gameEnded = false;
@@ -91,11 +69,6 @@ var endGame = function() {
         //when all words entered
         if(listOfWords.length === 0){
                gameEnded = true;
-              clearInterval(moveBox);
-              row.innerHTML = "";
-              listOfWords = ["One","Two","Three","Four","Five"];
-              word = "";
-
           }
         else{
             displayClicked.innerText= "";
@@ -107,17 +80,60 @@ var endGame = function() {
 }
      var display = document.querySelector("#gameStarted");
      var startPage = document.querySelector("#startPage");
+var stop = false;
+     var moveLetter = function(){
+
+        var id =  setInterval(movingAnimation, 5);
+        function movingAnimation() {
+            if(!stop){
+                  for(var i = 0; i< letterBoxes.length ; i ++){
+                    if (pos[i] === 878) {
+                        var randomLetter = Math.floor(Math.random()*letters.length);
+                        pos[i]=0;
+                        //ensure that there is at least 1 letter that matches the current letters needed to be clicked
+                        if(i === 0){
+                            letterBoxes[i].innerHTML = wordArray[0].toUpperCase();
+                        }
+                    } else {
+                            pos[i]++;
+                            letterBoxes[i].style.left = pos[i] + 'px';
+                        }
+                        if(pos[i]===0 && i !== 0){
+                           letterBoxes[i].innerHTML = letters[randomLetter];
+                        }
+                }
+                }
+                else{
+                    clearInterval(id);
+                }
+            }
+        }
 var startGame= function(){
 
      startPage.classList.add("hide");
      display.classList.remove("hide");
+     row.classList.remove("hide");
     createLetters();
+    stop = false;
+    moveLetter();
 }
-var startEvent = function(){
     var startButton = document.querySelector("#startButton");
     startButton.addEventListener("click",startGame);
+var startEvent = function(){
      startPage.classList.remove("hide");
      display.classList.add("hide");
+   row.innerHTML = "";
+     letterBoxes = document.querySelectorAll(".letterBox");
+     listOfWords = ["O"];
+     displayClicked.innerText = "";
+     stop = true;
+     row.classList.add("hide");
+     listOfWords = ["O"];
+     word = "";
+     displayText();
+          pos = [];
+
+
 }
 startEvent();
 
