@@ -8,9 +8,11 @@ var startButton = document.querySelector("#startButton");
 var startPage = document.querySelector("#startPage");
 var startingHeader = document.querySelector("#startingHeader");
 
+
 var displayLettersLeft = document.querySelector("#lettersLeft");
 var displayClicked = document.querySelector("#lettersClicked");
 var display = document.querySelector("#gameStarted");
+var gameFactors = document.querySelector(".outerContainer");
 
 var movingLetters;
 var row;
@@ -19,26 +21,40 @@ var pos;
 //health related variables
 var health = document.querySelector(".healthImg");
 var healthArray = health.innerHTML.split(" ");
-var healthPoints = 3;
+var healthPoints;
+
+var score;
+var scoreDisplay = document.querySelector("#scoreDisplay");
 
 var time;
+var displayTime = document.querySelector("#timerDisplay");
 //variable to stop time based code
 var stop;
 
 
 var setGlobalVariable = function(){
 
-    listOfWords = ["Cat","Dog","Key"];
+    listOfWords = ["CatTest","Dog","Key"];
     wordArray = [];
-    displayClicked.innerText = "";
+
     word = "";
+    gameFactors.classList.add("hide");
     row = document.querySelector('.row');
-    row.innerHTML = "";
+
     row.classList.add("hide");
     pos = [];
     movingLetters = document.querySelectorAll(".letters");
     stop = true;
     time = 60;
+    score = 0;
+    healthPoints = 3;
+    //clear all displays
+    row.innerHTML = "";
+    lettersLeft.innerHTML = "";
+    displayClicked.innerText = "";
+    displayTime.innerHTML = time;
+    health.innerHTML = "❤️ ❤️ ❤️";
+    scoreDisplay.innerHTML = "Score : 0";
 }
 
 setGlobalVariable();
@@ -58,6 +74,8 @@ var checkLetter = function(){
         displayClicked.innerText += wordArray.shift();
         displayLettersLeft.innerText = wordArray.join("");
          this.innerText = "";
+         score = score + 100;
+         scoreDisplay.innerHTML = "Score : "+ score;
       }else{
         healthPoints--;
         healthArray[healthPoints] = "🤍";
@@ -66,8 +84,9 @@ var checkLetter = function(){
       }
       var displayEndGame = endGame();
       if(displayEndGame){
+        startingHeader.innerText = "You won!\nTotal score : "+ score +"\nPlay again?";
         startEvent();
-        startingHeader.innerText = "You won!\nPlay again?"
+
       }
       if(healthPoints <= 0){
         startEvent();
@@ -155,6 +174,7 @@ var startGame= function(){
 
     startPage.classList.add("hide");
     display.classList.remove("hide");
+    gameFactors.classList.remove("hide");
     row.classList.remove("hide");
     createLetters();
     stop = false;
@@ -168,7 +188,6 @@ var startEvent = function(){
      display.classList.add("hide");
      setGlobalVariable();
      displayText();
-
 }
 
 var timer = function(){
@@ -182,7 +201,6 @@ var timer = function(){
             }
         }else{
         time--;
-        var displayTime = document.querySelector("#timerDisplay");
         displayTime.innerText = time;
        }
     }
