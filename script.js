@@ -162,6 +162,10 @@ var timer = function(){
     function timePassed(){
         if(time === 0 || stop){
             clearInterval(id);
+            if(time === 0){
+                startEvent();
+                startingHeader.innerText = "Times up!\nPlay again?"
+            }
         }else{
         time--;
         var displayTime = document.querySelector("#timerDisplay");
