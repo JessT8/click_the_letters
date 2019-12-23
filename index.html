@@ -6,19 +6,28 @@
     <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="container">
-         <div class="center verticalAlignment">
-            <div id="startPage">
-                <h1 id="startingHeader">CLICK THE LETTERS<h2>
-                <button id="startButton">Start</button>
-            </div>
-            <div id ="gameStarted" class= "hide">
-                <h1 id="displayText "><span id="lettersClicked"></span><span id="lettersLeft"></span></h1>
-            </div>
+<!--     <div class="outerContainer">
+ --><div class="outerContainer">
+        <div class="healthAndTime">
+            <div id="timerDisplay"></div><div class="healthImg">❤️ ❤️ ❤️</div>
         </div>
-        <div class="row">
-        </div>
+                <div id="scoreDisplay">Score : 0</div>
     </div>
+        <div class="container">
+             <div class="center verticalAlignment">
+                <div id="startPage">
+                    <h1 id="startingHeader">CLICK THE LETTERS</h1>
+                    <button id="startButton">Start</button>
+                </div>
+                <div id ="gameStarted" class= "hide">
+                    <h1 id="displayText "><span id="lettersClicked"></span><span id="lettersLeft"></span></h1>
+                </div>
+            </div>
+            <div class="row">
+            </div>
+        </div>
+        </div>
+<!--     </div> -->
     <script type="text/javascript" src="script.js"></script>
 </body>
 </html>
