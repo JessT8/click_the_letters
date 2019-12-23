@@ -16,6 +16,11 @@ var movingLetters;
 var row;
 var pos;
 
+//health related variables
+var health = document.querySelector(".healthImg");
+var healthArray = health.innerHTML.split(" ");
+var healthPoints = 3;
+
 var time;
 //variable to stop time based code
 var stop;
@@ -53,11 +58,20 @@ var checkLetter = function(){
         displayClicked.innerText += wordArray.shift();
         displayLettersLeft.innerText = wordArray.join("");
          this.innerText = "";
+      }else{
+        healthPoints--;
+        healthArray[healthPoints] = "🤍";
+        health.innerHTML = healthArray.join(" ");
+        health = document.querySelector(".healthImg");
       }
       var displayEndGame = endGame();
       if(displayEndGame){
         startEvent();
         startingHeader.innerText = "You won!\nPlay again?"
+      }
+      if(healthPoints <= 0){
+        startEvent();
+        startingHeader.innerText = "You ran out of life!\nPlay again?"
       }
       return correctLetter;
 }
