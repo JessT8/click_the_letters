@@ -15,7 +15,8 @@ var display = document.querySelector("#gameStarted");
 var gameFactors = document.querySelector(".outerContainer");
 
 var movingLetters;
-var row;
+var rows;
+var rowContainers = document.querySelector(".rowContainer");
 var pos;
 
 //health related variables
@@ -30,26 +31,31 @@ var time;
 var displayTime = document.querySelector("#timerDisplay");
 //variable to stop time based code
 var stop;
-
+var level = 1;
 
 var setGlobalVariable = function(){
 
-    listOfWords = ["CatTest","Dog","Key"];
+    listOfWords = ["Cat","Dog","Key"];
     wordArray = [];
 
+    rows = [];
     word = "";
     gameFactors.classList.add("hide");
-    row = document.querySelector('.row');
+    for(var i = 0; i < 3 ; i++){
+        var rowDiv = '.row'+(i+1);
+        var row = document.querySelector(rowDiv);
+        row.classList.add("hide");
+        row.innerHTML = "";
+        rows.push(row);
+    }
 
-    row.classList.add("hide");
-    pos = [];
+    pos = [[],[],[]];
     movingLetters = document.querySelectorAll(".letters");
     stop = true;
     time = 60;
     score = 0;
     healthPoints = 3;
     //clear all displays
-    row.innerHTML = "";
     lettersLeft.innerHTML = "";
     displayClicked.innerText = "";
     displayTime.innerHTML = time;
@@ -97,13 +103,15 @@ var checkLetter = function(){
 
 var createLetterDiv = function(){
             var box = document.createElement('div');
-            pos.push(0);
             var randomLetter = Math.floor(Math.random()*letters.length);
             box.innerHTML = letters[randomLetter];
             box.addEventListener('click',checkLetter);
             box.className = "letters";
-            row.appendChild(box);
+               var randomIndex = Math.floor(Math.random()*rowContainers.childElementCount);
+               rows[randomIndex].appendChild(box);
+               pos[randomIndex].push(0);
             //update global variable
+            rowContainers = document.querySelector(".rowContainer");
             movingLetters = document.querySelectorAll(".letters");
 }
 //end game when all letters have been entered
@@ -148,34 +156,45 @@ var moveLetter = function(){
         var id =  setInterval(movingAnimation, 5);
         function movingAnimation() {
             if(!stop){
-                  for(var i = 0; i< movingLetters.length ; i ++){
-                    if (pos[i] === 878) {
-                        var randomLetter = Math.floor(Math.random()*letters.length);
-                        pos[i]=0;
-                        //ensure that there is at least 1 letter that matches the current letters needed to be clicked
-                        if(i === 0){
-                            movingLetters[i].innerHTML = wordArray[0].toUpperCase();
+                for(var i = 0; i<pos.length; i++){
+                    var currentContainer =rowContainers.children[i];
+                    for(var j = 0; j<currentContainer.childElementCount;j++){
+                        var letter = currentContainer.querySelectorAll('div')[j];
+                        if (pos[i][j] === 878) {
+                       var randomLetter = Math.floor(Math.random()*letters.length);
+                        pos[i].shift();
+                        var randomIndex = Math.floor(Math.random()*rowContainers.childElementCount);
+                        rows[randomIndex].appendChild(letter);
+                        pos[randomIndex].push(0);
+                        letter.classList.add('hide');
+                        letter.innerHTML = letters[randomLetter];
+                    }
+                    else if(pos[i][j] < 878 && !letter.classList.contains('hide')){
+                            pos[i][j] ++;
+                            letter.style.left = pos[i][j] + 'px';
                         }
-                    } else {
-                            pos[i]++;
-                            movingLetters[i].style.left = pos[i] + 'px';
+                        if(letter.classList.contains('hide')){
+                            letter.classList.remove('hide');
+                            letter.style = 0 + "px";
                         }
-                        if(pos[i]===0 && i !== 0){
-                           movingLetters[i].innerHTML = letters[randomLetter];
-                        }
-                }
-                }
-                else{
-                    clearInterval(id);
+                        // if(currentPos[i]===0 && i !== 0){
+                        //    rowContainers[i][j].innerHTML = letters[randomLetter];
+                        // }
                 }
             }
+           } else{
+                    clearInterval(id);
+                }
         }
+}
 var startGame= function(){
 
     startPage.classList.add("hide");
     display.classList.remove("hide");
     gameFactors.classList.remove("hide");
-    row.classList.remove("hide");
+    for(var i = 0; i<rows.length;i++){
+            rows[i].classList.remove("hide");
+        }
     createLetters();
     stop = false;
     moveLetter();
@@ -193,7 +212,7 @@ var startEvent = function(){
 var timer = function(){
     var id = setInterval(timePassed, 1000)
     function timePassed(){
-        if(time === 0 || stop){
+        if(time === 0 ||  stop){
             clearInterval(id);
             if(time === 0){
                 startEvent();
@@ -247,3 +266,17 @@ startEvent();
 // }
 
 // doSubmit();
+
+
+                  // for(var i = 0; i< movingLetters.length ; i ++){
+                  //   if (pos[i] === 878) {
+                  //       var randomLetter = Math.floor(Math.random()*letters.length);
+                  //       pos[i]=0;
+                  //   } else {
+                  //           pos[i]++;
+                  //           movingLetters[i].style.left = pos[i] + 'px';
+                  //       }
+                  //       if(pos[i]===0 && i !== 0){
+                  //          movingLetters[i].innerHTML = letters[randomLetter];
+                  //       }
+                  //    }
