@@ -10,8 +10,8 @@
 	margin: 90px auto;
 }
 .letters{
+		 left: 0;
 	   position: absolute;
-	   left: 0px;
      display: flex;
 	   width: 100px;
 	   height: 100px;
@@ -24,8 +24,11 @@
 	   cursor: pointer;
 	   background-image: radial-gradient(circle, white, rgb(197,239,253));
 }
-.row{
+.row1, .row2, .row3{
 	position: relative;
+	display: block;
+	border: 2px;
+	height: 100px;
 }
 #lettersClicked{
 	color:blue;
@@ -80,11 +83,13 @@
 #scoreDisplay{
 	display:inline-block;
 	height: 40px;
-	width: 150px;
+	width: auto;
 	position: absolute;
 	border: 3px solid black;
 text-align: center;
 	margin:0 0 0 60px;
 	padding-top: 10px;
+	padding-right: 10px;
+	padding-left:10px;
 	font-size: 28px;
 }
