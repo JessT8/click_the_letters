@@ -13,6 +13,7 @@ var startButton = document.querySelector("#startButton");
 //game factors contains health, timer and score
 var gameFactors = document.querySelector(".outerContainer");
 var display = document.querySelector("#gameStarted");
+var levelDisplay = document.querySelector("#levelHeader");
 var displayLettersLeft = document.querySelector("#lettersLeft");
 var displayClicked = document.querySelector("#lettersClicked");
 
@@ -67,6 +68,7 @@ var setGlobalVariable = function(){
     time = 60;
     score = 0;
     level = 1;
+    levelDisplay.innerHTML = "Level "+ level;
     healthPoints = 3;
     //clear all displays
     lettersLeft.innerHTML = "";
@@ -150,6 +152,7 @@ var endGame = function() {
             time = 60;
             displayClicked.innerText= "";
             displayText();
+            levelDisplay.innerHTML = "Level "+ level;
            }
             }
         else{
