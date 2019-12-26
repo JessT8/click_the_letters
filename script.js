@@ -2,6 +2,7 @@
 var listOfWords;
 var word = "";
 var letters = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
+var replacedLetters;
 var wordArray = [];
 
 
@@ -33,7 +34,7 @@ var time;
 var displayTime = document.querySelector("#timerDisplay");
 //variable to stop time based code
 var stop;
-var level = 1;
+var level;
 
 var setGlobalVariable = function(){
 
@@ -42,7 +43,7 @@ var setGlobalVariable = function(){
     // ["Take", "Four", "Blue"],
     // ["Great", "Eight","Blink"]
     // ];
-        listOfWords = [
+    listOfWords = [
     ["C","D","K"],
     ["T", "F", "B"],
     ["G", "E","B"]
@@ -65,6 +66,7 @@ var setGlobalVariable = function(){
     stop = true;
     time = 60;
     score = 0;
+    level = 1;
     healthPoints = 3;
     //clear all displays
     lettersLeft.innerHTML = "";
@@ -79,9 +81,16 @@ setGlobalVariable();
 var displayText = function(){
     word = listOfWords[level-1][0];
     wordArray = word.split("");
+    replacedLetters = letters.slice();
+    //replace some letters with letter needed
+    for(var i = 0 ; i < 6; i++)
+    {
+        var letterIndex = Math.floor(Math.random()*letters.length);
+        replacedLetters[letterIndex] = wordArray[0];
+    }
     displayLettersLeft.innerText = word;
 }
-displayText();
+
 //win condition
 var checkLetter = function(){
       var correctLetter = false;
@@ -115,7 +124,7 @@ var checkLetter = function(){
 var createLetterDiv = function(){
             var box = document.createElement('div');
             var randomLetter = Math.floor(Math.random()*letters.length);
-            box.innerHTML = letters[randomLetter];
+            box.innerHTML = replacedLetters[randomLetter];
             box.addEventListener('click',checkLetter);
             box.className = "letters";
                var randomIndex = Math.floor(Math.random()*rowContainers.childElementCount);
@@ -144,7 +153,7 @@ var endGame = function() {
            }
             }
         else{
-            //next word in level
+            //next word in current level
             displayClicked.innerText= "";
             displayText();
         }
@@ -186,7 +195,7 @@ var moveLetter = function(){
                             rows[randomIndex].appendChild(letter);
                             pos[randomIndex].push(0);
                             letter.classList.add('hide');
-                            letter.innerHTML = letters[randomLetter];
+                            letter.innerHTML = replacedLetters[randomLetter];
                             j = 0;
                     }
                     else if(pos[i][j] < 878 && !letter.classList.contains('hide')){
