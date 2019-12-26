@@ -4,19 +4,21 @@ var word = "";
 var letters = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
 var wordArray = [];
 
-var startButton = document.querySelector("#startButton");
+
 var startPage = document.querySelector("#startPage");
 var startingHeader = document.querySelector("#startingHeader");
+var startButton = document.querySelector("#startButton");
 
-
+//game factors contains health, timer and score
+var gameFactors = document.querySelector(".outerContainer");
+var display = document.querySelector("#gameStarted");
 var displayLettersLeft = document.querySelector("#lettersLeft");
 var displayClicked = document.querySelector("#lettersClicked");
-var display = document.querySelector("#gameStarted");
-var gameFactors = document.querySelector(".outerContainer");
 
+//row containers contain all the animated letters
+var rowContainers = document.querySelector(".rowContainer");
 var movingLetters;
 var rows;
-var rowContainers = document.querySelector(".rowContainer");
 var pos;
 
 //health related variables
@@ -35,20 +37,25 @@ var level = 1;
 
 var setGlobalVariable = function(){
 
-    listOfWords = ["Cat","Dog","Key"];
-    wordArray = [];
+    listOfWords = [
+    ["Cat","Dog","Key"],
+    ["Take", "Four", "Blue"],
+    ["Great", "Eight","Blink"]
+    ];
 
+    wordArray = [];
     rows = [];
     word = "";
     gameFactors.classList.add("hide");
     for(var i = 0; i < 3 ; i++){
         var rowDiv = '.row'+(i+1);
         var row = document.querySelector(rowDiv);
-        row.classList.add("hide");
         row.innerHTML = "";
         rows.push(row);
     }
 
+    rowContainers.classList.add('hide');
+    display.classList.add("hide");
     pos = [[],[],[]];
     movingLetters = document.querySelectorAll(".letters");
     stop = true;
@@ -66,7 +73,7 @@ var setGlobalVariable = function(){
 setGlobalVariable();
 
 var displayText = function(){
-    word = listOfWords[0];
+    word = listOfWords[level-1][0];
     wordArray = word.split("");
     displayLettersLeft.innerText = word;
 }
@@ -119,15 +126,23 @@ var endGame = function() {
     var gameEnded = false;
     //when word array is empty
     if(wordArray.length === 0){
-        listOfWords.shift();
+        listOfWords[level-1].shift();
         //when all words entered
-        if(listOfWords.length === 0){
+        if(listOfWords[level-1].length === 0){
+            if(level === 3){
                gameEnded = true;
-          }
-        else{
+           }else{
+            //next level
+            level++;
+            time = 60;
             displayClicked.innerText= "";
             displayText();
-
+           }
+            }
+        else{
+            //next word in level
+            displayClicked.innerText= "";
+            displayText();
         }
     }
     return gameEnded;
@@ -177,9 +192,6 @@ var moveLetter = function(){
                             letter.classList.remove('hide');
                             letter.style = 0 + "px";
                         }
-                        // if(currentPos[i]===0 && i !== 0){
-                        //    rowContainers[i][j].innerHTML = letters[randomLetter];
-                        // }
                 }
             }
            } else{
@@ -190,11 +202,10 @@ var moveLetter = function(){
 var startGame= function(){
 
     startPage.classList.add("hide");
+
     display.classList.remove("hide");
     gameFactors.classList.remove("hide");
-    for(var i = 0; i<rows.length;i++){
-            rows[i].classList.remove("hide");
-        }
+    rowContainers.classList.remove('hide');
     createLetters();
     stop = false;
     moveLetter();
@@ -234,7 +245,6 @@ startEvent();
 
 
 
-//API REQUIRES API KEY THAT WILL ONLY BE AVAILABLE 7 DAYS LATER! DO LATER!
 // var responseHandler = function() {
 //   console.log("response text", this.responseText);
 //   var response = JSON.parse( this.responseText );
