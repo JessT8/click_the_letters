@@ -37,12 +37,16 @@ var level = 1;
 
 var setGlobalVariable = function(){
 
-    listOfWords = [
-    ["Cat","Dog","Key"],
-    ["Take", "Four", "Blue"],
-    ["Great", "Eight","Blink"]
+    // listOfWords = [
+    // ["Cat","Dog","Key"],
+    // ["Take", "Four", "Blue"],
+    // ["Great", "Eight","Blink"]
+    // ];
+        listOfWords = [
+    ["C","D","K"],
+    ["T", "F", "B"],
+    ["G", "E","B"]
     ];
-
     wordArray = [];
     rows = [];
     word = "";
@@ -175,17 +179,18 @@ var moveLetter = function(){
                     var currentContainer =rowContainers.children[i];
                     for(var j = 0; j<currentContainer.childElementCount;j++){
                         var letter = currentContainer.querySelectorAll('div')[j];
-                        if (pos[i][j] === 878) {
-                       var randomLetter = Math.floor(Math.random()*letters.length);
-                        pos[i].shift();
-                        var randomIndex = Math.floor(Math.random()*rowContainers.childElementCount);
-                        rows[randomIndex].appendChild(letter);
-                        pos[randomIndex].push(0);
-                        letter.classList.add('hide');
-                        letter.innerHTML = letters[randomLetter];
+                        if (pos[i][j] >= 878) {
+                           var randomLetter = Math.floor(Math.random()*letters.length);
+                            pos[i].shift();
+                            var randomIndex = Math.floor(Math.random()*rowContainers.childElementCount);
+                            rows[randomIndex].appendChild(letter);
+                            pos[randomIndex].push(0);
+                            letter.classList.add('hide');
+                            letter.innerHTML = letters[randomLetter];
+                            j = 0;
                     }
                     else if(pos[i][j] < 878 && !letter.classList.contains('hide')){
-                            pos[i][j] ++;
+                            pos[i][j] += level;
                             letter.style.left = pos[i][j] + 'px';
                         }
                         if(letter.classList.contains('hide')){
