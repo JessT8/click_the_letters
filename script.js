@@ -108,8 +108,10 @@ var minusHealth= function(){
 //win condition
 var checkLetter = function(){
       var correctLetter = false;
+      var soundEffect;
       //if current letter click is the letter in the array
       if(this.innerHTML === wordArray[0].toUpperCase()){
+        soundEffect = new Audio("Audio/correct.m4a");
         correctLetter = true;
         displayClicked.innerText += wordArray.shift();
         displayLettersLeft.innerText = wordArray.join("");
@@ -117,9 +119,10 @@ var checkLetter = function(){
          score = score + 100;
          scoreDisplay.innerHTML = "Score : "+ score;
       }else{
+        soundEffect = new Audio("Audio/wrong.m4a");
         minusHealth();
       }
-
+      soundEffect.play();
       var displayEndGame = endGame();
       if(displayEndGame){
         startingHeader.innerText = "You won!\nTotal score : "+ score +"\nPlay again?";
