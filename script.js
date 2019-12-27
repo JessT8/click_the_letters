@@ -25,7 +25,7 @@ var pos;
 
 //health related variables
 var health = document.querySelector(".healthImg");
-var healthArray = health.innerHTML.split(" ");
+var healthArray;
 var healthPoints;
 
 var score;
@@ -40,16 +40,16 @@ var speed;
 
 var setGlobalVariable = function(){
 
-    // listOfWords = [
-    // ["Cat","Dog","Key"],
-    // ["Take", "Four", "Blue"],
-    // ["Great", "Eight","Blink"]
-    // ];
     listOfWords = [
-    ["C","D","K"],
-    ["T", "F", "B"],
-    ["G", "E","B"]
+    ["Cat","Dog","Key"],
+    ["Take", "Four", "Blue"],
+    ["Great", "Eight","Blink"]
     ];
+    // listOfWords = [
+    // ["C","D","K"],
+    // ["T", "F", "B"],
+    // ["G", "E","B"]
+    // ];
     wordArray = [];
     rows = [];
     word = "";
@@ -77,6 +77,7 @@ var setGlobalVariable = function(){
     displayClicked.innerText = "";
     displayTime.innerHTML = time;
     health.innerHTML = "❤️ ❤️ ❤️";
+    healthArray = health.innerHTML.split(" ")
     scoreDisplay.innerHTML = "Score : 0";
 }
 
@@ -90,7 +91,7 @@ var displayText = function(){
     for(var i = 0 ; i < 6; i++)
     {
         var letterIndex = Math.floor(Math.random()*letters.length);
-        replacedLetters[letterIndex] = wordArray[0];
+        replacedLetters[letterIndex] = wordArray[0].toUpperCase();
     }
     displayLettersLeft.innerText = word;
 }
@@ -163,7 +164,16 @@ var endGame = function() {
             displayClicked.innerText= "";
             displayText();
         }
+    }else{
+    //next letter in current word
+    replacedLetters = letters.slice();
+    //replace some letters with letter needed
+    for(var i = 0 ; i < 6; i++)
+    {
+        var letterIndex = Math.floor(Math.random()*letters.length);
+        replacedLetters[letterIndex] = wordArray[0].toUpperCase();
     }
+     }
     return gameEnded;
 }
 //create the letters at an interval
