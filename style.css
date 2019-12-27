@@ -22,8 +22,10 @@
 	   align-items: center;
 	   font-size: 50px;
 	   cursor: pointer;
-	   background-image: radial-gradient(circle, white, rgb(197,239,253));
+	   background-color: 	#bae1ff;
+	   /*background-image: radial-gradient(circle, white, rgb(197,239,253));*/
 }
+
 .row1, .row2, .row3{
 	position: relative;
 	display: block;
@@ -101,4 +103,23 @@
 	padding-right: 10px;
 	padding-left:10px;
 	font-size: 28px;
+}
+
+#startButton {
+  background-color: #D2F6FFFF;
+  border: none;
+  color: black;
+  padding: 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  border: 1px solid black;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 50%;
+}
+#startButton:hover{
+	  background-color: #E6F6FFFF;
+	    text-decoration: none;
 }
