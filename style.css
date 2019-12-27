@@ -31,7 +31,7 @@
 	height: 100px;
 }
 #lettersClicked{
-	color:blue;
+	text-shadow: 3px 3px 6px #00FFFCFF;
 }
 #lettersLeft{
 
@@ -75,19 +75,28 @@
 	margin:10px 0 0px 60px;
 }
 
-.outerContainer{
-/*	padding-bottom: 10px;
- border-bottom: 3px solid pink;*/
+#levelHeader{
+	display:inline-block;
+	height: 40px;
+	width: 200px;
+	position: absolute;
+	left: 550px;
+	border: 3px solid black;
+  text-align: center;
+	margin:0 0 0 60px;
+	padding-top: 10px;
+	padding-right: 10px;
+	padding-left: 10px;
+	font-size: 28px;
 }
-
 #scoreDisplay{
 	display:inline-block;
 	height: 40px;
 	width: auto;
 	position: absolute;
 	border: 3px solid black;
-text-align: center;
-	margin:0 0 0 60px;
+	text-align: center;
+	left: 1200px;
 	padding-top: 10px;
 	padding-right: 10px;
 	padding-left:10px;
