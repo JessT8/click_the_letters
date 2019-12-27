@@ -10,7 +10,7 @@ var startPage = document.querySelector("#startPage");
 var startingHeader = document.querySelector("#startingHeader");
 var startButton = document.querySelector("#startButton");
 
-//game factors contains health, timer and score
+//game factors containing health, timer and score
 var gameFactors = document.querySelector(".outerContainer");
 var display = document.querySelector("#gameStarted");
 var levelDisplay = document.querySelector("#levelHeader");
@@ -36,6 +36,7 @@ var displayTime = document.querySelector("#timerDisplay");
 //variable to stop time based code
 var stop;
 var level;
+var speed;
 
 var setGlobalVariable = function(){
 
@@ -68,6 +69,7 @@ var setGlobalVariable = function(){
     time = 60;
     score = 0;
     level = 1;
+    speed = (level+1) * 0.5;
     levelDisplay.innerHTML = "Level "+ level;
     healthPoints = 3;
     //clear all displays
@@ -153,6 +155,7 @@ var endGame = function() {
             displayClicked.innerText= "";
             displayText();
             levelDisplay.innerHTML = "Level "+ level;
+            speed = (level+1) * 0.5;
            }
             }
         else{
@@ -202,7 +205,7 @@ var moveLetter = function(){
                             j = 0;
                     }
                     else if(pos[i][j] < 878 && !letter.classList.contains('hide')){
-                            pos[i][j] += level;
+                            pos[i][j] += speed;
                             letter.style.left = pos[i][j] + 'px';
                         }
                         if(letter.classList.contains('hide')){
