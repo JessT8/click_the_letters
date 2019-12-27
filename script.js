@@ -127,6 +127,7 @@ var checkLetter = function(){
 
       var displayEndGame = endGame();
       if(displayEndGame){
+        score += time;
         startingHeader.innerText = "You won!\nTotal score : "+ score +"\nPlay again?";
         startEvent();
       }
@@ -172,6 +173,7 @@ var endGame = function() {
                gameEnded = true;
            }else{
             //next level
+            score += time;
             level++;
             time = 60;
             displayClicked.innerText= "";
@@ -272,7 +274,7 @@ var timer = function(){
             clearInterval(id);
             if(time === 0){
                 startEvent();
-                startingHeader.innerText = "Times up!\nTotalS score:"+score+"\nPlay again?"
+                startingHeader.innerText = "Times up!\nTotal score:"+score+"\nPlay again?"
             }
         }else{
         time--;
