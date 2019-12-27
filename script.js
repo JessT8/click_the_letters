@@ -122,7 +122,9 @@ var checkLetter = function(){
         soundEffect = new Audio("Audio/wrong.m4a");
         minusHealth();
       }
+
       soundEffect.play();
+
       var displayEndGame = endGame();
       if(displayEndGame){
         startingHeader.innerText = "You won!\nTotal score : "+ score +"\nPlay again?";
