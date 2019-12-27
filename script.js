@@ -70,18 +70,17 @@ var setGlobalVariable = function(){
     score = 0;
     level = 1;
     speed = (level+1) * 0.5;
-    levelDisplay.innerHTML = "Level "+ level;
     healthPoints = 3;
-    //clear all displays
+    //set displays
+    levelDisplay.innerHTML = "Level "+ level;
     lettersLeft.innerHTML = "";
     displayClicked.innerText = "";
     displayTime.innerHTML = time;
     health.innerHTML = "❤️ ❤️ ❤️";
     healthArray = health.innerHTML.split(" ")
     scoreDisplay.innerHTML = "Score : 0";
-}
 
-setGlobalVariable();
+}
 
 var displayText = function(){
     word = listOfWords[level-1][0];
@@ -113,26 +112,33 @@ var checkLetter = function(){
         health.innerHTML = healthArray.join(" ");
         health = document.querySelector(".healthImg");
       }
+
       var displayEndGame = endGame();
       if(displayEndGame){
         startingHeader.innerText = "You won!\nTotal score : "+ score +"\nPlay again?";
         startEvent();
-
       }
       if(healthPoints <= 0){
         startEvent();
-        startingHeader.innerText = "You ran out of life!\nPlay again?"
+        startingHeader.innerText = "You ran out of life!\nTotal score : "+ score +"\nPlay again?"
       }
       return correctLetter;
 }
 
+var setColor = function(){
+
+}
+var setLetter = function(){
+   var randomLetter = Math.floor(Math.random()*letters.length);
+   return replacedLetters[randomLetter];
+}
+
 var createLetterDiv = function(){
             var box = document.createElement('div');
-            var randomLetter = Math.floor(Math.random()*letters.length);
-            box.innerHTML = replacedLetters[randomLetter];
+            box.innerHTML =  setLetter();
             box.addEventListener('click',checkLetter);
             box.className = "letters";
-               var randomIndex = Math.floor(Math.random()*rowContainers.childElementCount);
+            var randomIndex = Math.floor(Math.random()*rowContainers.childElementCount);
                rows[randomIndex].appendChild(box);
                pos[randomIndex].push(0);
             //update global variable
@@ -205,22 +211,21 @@ var moveLetter = function(){
                     for(var j = 0; j<currentContainer.childElementCount;j++){
                         var letter = currentContainer.querySelectorAll('div')[j];
                         if (pos[i][j] >= 878) {
-                           var randomLetter = Math.floor(Math.random()*letters.length);
+                            //relocate position
                             pos[i].shift();
                             var randomIndex = Math.floor(Math.random()*rowContainers.childElementCount);
-                            rows[randomIndex].appendChild(letter);
                             pos[randomIndex].push(0);
+                            rows[randomIndex].appendChild(letter);
+                            //hide letter before setting it
                             letter.classList.add('hide');
-                            letter.innerHTML = replacedLetters[randomLetter];
-                            j = 0;
-                    }
-                    else if(pos[i][j] < 878 && !letter.classList.contains('hide')){
-                            pos[i][j] += speed;
-                            letter.style.left = pos[i][j] + 'px';
-                        }
-                        if(letter.classList.contains('hide')){
+                            letter.innerHTML = setLetter();
                             letter.classList.remove('hide');
                             letter.style = 0 + "px";
+                            j = 0;
+                    }
+                    else{
+                            pos[i][j] += speed;
+                            letter.style.left = pos[i][j] + 'px';
                         }
                 }
             }
@@ -257,7 +262,7 @@ var timer = function(){
             clearInterval(id);
             if(time === 0){
                 startEvent();
-                startingHeader.innerText = "Times up!\nPlay again?"
+                startingHeader.innerText = "Times up!\nTotalS score:"+score+"\nPlay again?"
             }
         }else{
         time--;
@@ -265,6 +270,7 @@ var timer = function(){
        }
     }
 }
+setGlobalVariable();
 startEvent();
 
 
