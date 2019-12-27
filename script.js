@@ -2,9 +2,9 @@
 var listOfWords;
 var word = "";
 var letters = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
+var letterColors = ["#FFDAC1","#E2F0CB","#B5EAD7","#C7CEEA"];
 var replacedLetters;
 var wordArray = [];
-
 
 var startPage = document.querySelector("#startPage");
 var startingHeader = document.querySelector("#startingHeader");
@@ -82,9 +82,7 @@ var setGlobalVariable = function(){
 
 }
 
-var displayText = function(){
-    word = listOfWords[level-1][0];
-    wordArray = word.split("");
+var setReplaceLetterArray = function(){
     replacedLetters = letters.slice();
     //replace some letters with letter needed
     for(var i = 0 ; i < 6; i++)
@@ -92,9 +90,21 @@ var displayText = function(){
         var letterIndex = Math.floor(Math.random()*letters.length);
         replacedLetters[letterIndex] = wordArray[0].toUpperCase();
     }
+}
+var displayText = function(){
+    word = listOfWords[level-1][0];
+    wordArray = word.split("");
+    //replace some letters with letter needed
+     setReplaceLetterArray();
     displayLettersLeft.innerText = word;
 }
 
+var minusHealth= function(){
+        healthPoints--;
+        healthArray[healthPoints] = "🤍";
+        health.innerHTML = healthArray.join(" ");
+        health = document.querySelector(".healthImg");
+}
 //win condition
 var checkLetter = function(){
       var correctLetter = false;
@@ -107,10 +117,7 @@ var checkLetter = function(){
          score = score + 100;
          scoreDisplay.innerHTML = "Score : "+ score;
       }else{
-        healthPoints--;
-        healthArray[healthPoints] = "🤍";
-        health.innerHTML = healthArray.join(" ");
-        health = document.querySelector(".healthImg");
+        minusHealth();
       }
 
       var displayEndGame = endGame();
@@ -119,15 +126,17 @@ var checkLetter = function(){
         startEvent();
       }
       if(healthPoints <= 0){
-        startEvent();
         startingHeader.innerText = "You ran out of life!\nTotal score : "+ score +"\nPlay again?"
+        startEvent();
       }
       return correctLetter;
 }
 
 var setColor = function(){
-
+   var randomColor = Math.floor(Math.random()*letterColors.length);
+   return letterColors[randomColor];
 }
+
 var setLetter = function(){
    var randomLetter = Math.floor(Math.random()*letters.length);
    return replacedLetters[randomLetter];
@@ -141,6 +150,7 @@ var createLetterDiv = function(){
             var randomIndex = Math.floor(Math.random()*rowContainers.childElementCount);
                rows[randomIndex].appendChild(box);
                pos[randomIndex].push(0);
+               box.style.backgroundColor = setColor();
             //update global variable
             rowContainers = document.querySelector(".rowContainer");
             movingLetters = document.querySelectorAll(".letters");
@@ -172,13 +182,7 @@ var endGame = function() {
         }
     }else{
     //next letter in current word
-    replacedLetters = letters.slice();
-    //replace some letters with letter needed
-    for(var i = 0 ; i < 6; i++)
-    {
-        var letterIndex = Math.floor(Math.random()*letters.length);
-        replacedLetters[letterIndex] = wordArray[0].toUpperCase();
-    }
+    setReplaceLetterArray();
      }
     return gameEnded;
 }
@@ -215,12 +219,13 @@ var moveLetter = function(){
                             pos[i].shift();
                             var randomIndex = Math.floor(Math.random()*rowContainers.childElementCount);
                             pos[randomIndex].push(0);
-                            rows[randomIndex].appendChild(letter);
                             //hide letter before setting it
                             letter.classList.add('hide');
+                            rows[randomIndex].appendChild(letter);
                             letter.innerHTML = setLetter();
-                            letter.classList.remove('hide');
                             letter.style = 0 + "px";
+                            letter.classList.remove('hide');
+                            letter.style.backgroundColor = setColor();
                             j = 0;
                     }
                     else{
