@@ -22,7 +22,7 @@
 	   align-items: center;
 	   font-size: 50px;
 	   cursor: pointer;
-	   background-color: 	#bae1ff;
+/*	   background-color: 	#bae1ff;*/
 	   /*background-image: radial-gradient(circle, white, rgb(197,239,253));*/
 }
 
@@ -34,9 +34,18 @@
 }
 #lettersClicked{
 	text-shadow: 3px 3px 6px #00FFFCFF;
+	color: black;
+	-webkit-text-fill-color: black;
+	-webkit-text-stroke-width: 1px;
+	-webkit-text-stroke-color: black;
+	font-size: 70px;
 }
 #lettersLeft{
-
+	color: black;
+	-webkit-text-fill-color: white;
+	-webkit-text-stroke-width: 1px;
+	-webkit-text-stroke-color: black;
+		font-size: 70px;
 }
 .hide{
 	display: none;
@@ -118,8 +127,4 @@
   margin: 4px 2px;
   cursor: pointer;
   border-radius: 50%;
-}
-#startButton:hover{
-	  background-color: #E6F6FFFF;
-	    text-decoration: none;
 }
