@@ -109,7 +109,10 @@ var minusHealth= function(){
         health.innerHTML = healthArray.join(" ");
         health = document.querySelector(".healthImg");
 }
-//win condition
+var score = function(){
+    if()
+}
+//check letters clicked
 var checkLetter = function(){
       var correctLetter = false;
       var soundEffect;
@@ -120,6 +123,7 @@ var checkLetter = function(){
         displayClicked.innerText += wordArray.shift();
         displayLettersLeft.innerText = wordArray.join("");
          this.innerText = "";
+         //add 100 for every correct letters
          score = score + 100;
          scoreDisplay.innerHTML = "Score : "+ score;
       }else if(this.innerHTML !== ""){
@@ -131,7 +135,8 @@ var checkLetter = function(){
 
       var displayEndGame = endGame();
       if(displayEndGame){
-        score += time;
+        //final score calculation including health
+        score = score + (time * level) + (300* health);
         startingHeader.innerText = "You won!\nTotal score : "+ score +"\nPlay again?";
         startEvent();
       }
@@ -177,7 +182,7 @@ var endGame = function() {
                gameEnded = true;
            }else{
             //next level
-            score += time;
+            score = score + (time * level);
             level++;
             time = 60;
             displayClicked.innerText= "";
