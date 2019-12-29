@@ -45,6 +45,10 @@ var setGlobalVariable = function(){
     ["Take", "Four", "Blue"],
     ["Great", "Eight","Blink"]
     ];
+    listOfWords = listOfWords.map(function(level){
+        return level.map(function(word){
+            return word.toUpperCase();
+        });});
     // listOfWords = [
     // ["C","D","K"],
     // ["T", "F", "B"],
@@ -118,7 +122,7 @@ var checkLetter = function(){
          this.innerText = "";
          score = score + 100;
          scoreDisplay.innerHTML = "Score : "+ score;
-      }else{
+      }else if(this.innerHTML !== ""){
         soundEffect = new Audio("Audio/wrong.m4a");
         minusHealth();
       }
@@ -236,7 +240,7 @@ var moveLetter = function(){
                             j = 0;
                     }
                     else{
-                            pos[i][j] += speed;
+                            pos[i][j] += level;
                             letter.style.left = pos[i][j] + 'px';
                         }
                 }
@@ -273,8 +277,8 @@ var timer = function(){
         if(time === 0 ||  stop){
             clearInterval(id);
             if(time === 0){
-                startEvent();
-                startingHeader.innerText = "Times up!\nTotal score:"+score+"\nPlay again?"
+                startingHeader.innerText = "Times up!\nTotal score:"+score+"\nPlay again?";
+                    startEvent();
             }
         }else{
         time--;
@@ -324,17 +328,3 @@ startEvent();
 // }
 
 // doSubmit();
-
-
-                  // for(var i = 0; i< movingLetters.length ; i ++){
-                  //   if (pos[i] === 878) {
-                  //       var randomLetter = Math.floor(Math.random()*letters.length);
-                  //       pos[i]=0;
-                  //   } else {
-                  //           pos[i]++;
-                  //           movingLetters[i].style.left = pos[i] + 'px';
-                  //       }
-                  //       if(pos[i]===0 && i !== 0){
-                  //          movingLetters[i].innerHTML = letters[randomLetter];
-                  //       }
-                  //    }
