@@ -1,5 +1,4 @@
 //Global Variables
-var listOfWords;
 var word = "";
 var letters = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
 var letterColors = [ '#FFD34AFF', '#8FFFF5FF','#E94D46FF','#5FB2E2FF'];
@@ -40,22 +39,9 @@ var speed;
 
 var setGlobalVariable = function(){
 
-    listOfWords = [
-    ["Cat","Dog","Key"],
-    ["Take", "Four", "Blue"],
-    ["Great", "Eight","Blink"]
-    ];
-    listOfWords = listOfWords.map(function(level){
-        return level.map(function(word){
-            return word.toUpperCase();
-        });});
-
-        document.body.classList.add("backgroundImg");
-    // listOfWords = [
-    // ["C","D","K"],
-    // ["T", "F", "B"],
-    // ["G", "E","B"]
-    // ];
+    listOfWords =[[],[],[]];
+    setWords();
+    document.body.classList.add("backgroundImg");
     wordArray = [];
     rows = [];
     word = "";
