@@ -49,6 +49,8 @@ var setGlobalVariable = function(){
         return level.map(function(word){
             return word.toUpperCase();
         });});
+
+        document.body.classList.add("backgroundImg");
     // listOfWords = [
     // ["C","D","K"],
     // ["T", "F", "B"],
@@ -109,9 +111,6 @@ var minusHealth= function(){
         health.innerHTML = healthArray.join(" ");
         health = document.querySelector(".healthImg");
 }
-var score = function(){
-    if()
-}
 //check letters clicked
 var checkLetter = function(){
       var correctLetter = false;
@@ -136,7 +135,7 @@ var checkLetter = function(){
       var displayEndGame = endGame();
       if(displayEndGame){
         //final score calculation including health
-        score = score + (time * level) + (300* health);
+        score = score + (time * level) + (300* healthPoints);
         startingHeader.innerText = "You won!\nTotal score : "+ score +"\nPlay again?";
         startEvent();
       }
@@ -263,6 +262,7 @@ var startGame= function(){
     gameFactors.classList.remove("hide");
     rowContainers.classList.remove('hide');
     createLetters();
+    document.body.classList.remove("backgroundImg");
     stop = false;
     moveLetter();
     timer();
@@ -282,7 +282,7 @@ var timer = function(){
         if(time === 0 ||  stop){
             clearInterval(id);
             if(time === 0){
-                startingHeader.innerText = "Times up!\nTotal score:"+score+"\nPlay again?";
+                startingHeader.innerText = "Times up!\nTotal score : "+score+"\nPlay again?";
                     startEvent();
             }
         }else{
