@@ -4,8 +4,8 @@
    	font-family: 'Montserrat', sans-serif;
 }
 body{
-	background-color: #6A658EFF;
   color: white;
+  background-color: #48445FFF;
 }
 .backgroundImg{
 	background-image: url(img/simple-gray-back-colours-ball-pptbackgrounds.png);
@@ -25,7 +25,6 @@ body{
      display: flex;
 	   width: 100px;
 	   height: 100px;
-	   border: 1px solid black;
 	   border-radius: 50%;
 	   margin: 0 18px;
 	   justify-content: center;
@@ -33,8 +32,7 @@ body{
 	   font-size: 50px;
 	   cursor: pointer;
 	   color: black;
-}
-
+	}
 .row1, .row2, .row3{
 	position: relative;
 	display: block;
@@ -44,17 +42,20 @@ body{
 #lettersClicked{
 	text-shadow: 3px 3px 6px #00FFFCFF;
 	color: black;
-	-webkit-text-fill-color: black;
+	-webkit-text-fill-color: white;
 	-webkit-text-stroke-width: 1px;
-	-webkit-text-stroke-color: black;
+	-webkit-text-stroke-color: white;
 	font-size: 70px;
+	letter-spacing: 10px;
 }
 #lettersLeft{
 	color: black;
 	-webkit-text-fill-color: white;
-	-webkit-text-stroke-width: 1px;
+	-webkit-text-stroke-width: 0.5px;
 	-webkit-text-stroke-color: black;
 		font-size: 70px;
+
+		letter-spacing: 10px;
 }
 .hide{
 	display: none;
@@ -66,30 +67,32 @@ body{
 }
 
 #timerDisplay{
-	color:black;
+	color:white;
 	width: 50px;
 	height: 40px;
 	position: absolute;
 	border-radius: 50%;
-	border: 3px solid black;
+	border:3px solid #38354AFF;
 	margin-left: -10px;
 	margin-top: -3px;
-	background-color: white;
+	background-color: #38354AFF;
 	text-align: center;
 	font-size: 25px;
 	padding-top: 10px;
 }
 
 .healthAndTime{
+	/*in line with level header and score*/
 	display:inline-block;
 	height: 50px;
 	width: 150px;
 	position: relative;
-	border-top: 3px solid black;
-	border-bottom: 3px solid black;
-	border-right: 3px solid black;
+	border-top: 3px solid #38354AFF;
+	border-bottom: 3px solid #38354AFF;
+	border-right: 3px solid #38354AFF;
 	margin-left: 30px;
 	border-radius: 25px;
+	background-color: #38354AFF;
 }
 .healthImg{
 	margin:10px 0 0px 60px;
@@ -101,7 +104,6 @@ body{
 	width: 200px;
 	position: absolute;
 	left: 550px;
-	border: 3px solid black;
   text-align: center;
 	margin:0 0 0 60px;
 	padding-top: 10px;
@@ -114,7 +116,6 @@ body{
 	height: 40px;
 	width: auto;
 	position: absolute;
-	border: 3px solid black;
 	text-align: center;
 	left: 1200px;
 	padding-top: 10px;
