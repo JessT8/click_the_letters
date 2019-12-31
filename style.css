@@ -3,6 +3,16 @@
    width : 1000px;
    	font-family: 'Montserrat', sans-serif;
 }
+body{
+	background-color: #6A658EFF;
+  color: white;
+}
+.backgroundImg{
+	background-image: url(img/simple-gray-back-colours-ball-pptbackgrounds.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
 .center{
    text-align: center;
 }
@@ -22,8 +32,7 @@
 	   align-items: center;
 	   font-size: 50px;
 	   cursor: pointer;
-/*	   background-color: 	#bae1ff;*/
-	   /*background-image: radial-gradient(circle, white, rgb(197,239,253));*/
+	   color: black;
 }
 
 .row1, .row2, .row3{
@@ -53,11 +62,11 @@
 #startPage{
 	padding-top: 200px;
 	padding-bottom: 200px;
- margin: 50px;
- border: 1px solid black;
+  margin: 50px;
 }
 
 #timerDisplay{
+	color:black;
 	width: 50px;
 	height: 40px;
 	position: absolute;
