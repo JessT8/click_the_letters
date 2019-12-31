@@ -2,7 +2,7 @@
 var listOfWords;
 var word = "";
 var letters = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
-var letterColors = ["#FFDAC1","#E2F0CB","#B5EAD7","#C7CEEA"];
+var letterColors = [ '#FFD34AFF', '#8FFFF5FF','#E94D46FF','#5FB2E2FF'];
 var replacedLetters;
 var wordArray = [];
 
@@ -125,11 +125,11 @@ var checkLetter = function(){
          //add 100 for every correct letters
          score = score + 100;
          scoreDisplay.innerHTML = "Score : "+ score;
-      }else if(this.innerHTML !== ""){
+      }else{
         soundEffect = new Audio("Audio/wrong.m4a");
         minusHealth();
       }
-
+      this.classList.add("hide");
       soundEffect.play();
 
       var displayEndGame = endGame();
