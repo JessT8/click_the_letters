@@ -8,11 +8,11 @@
 - create a `style.css`.
 
 ### Create a working game
-- create a game that display a word and a list of letters that allow players to click on them.
+- create a game that display a word and letters that allow players to click on them.
 
-- Create a div row for the list of letters and clicking on them will disable the click and remove the visibility of the letter.
+- Create a div row for the list of letters and clicking on them will remove the the letter.
 
-- When the player clicks each letters, it checks if it's the first letter of the word and if it is, the first letter of the word changes color to indicate that it has been clicked.
+- When the player clicks each letters, it checks if it's the first letter of the word and if it is, the first letter of the word in the display changes to indicate that it has been clicked.
 
 ##Detecting a win state
 
@@ -44,52 +44,34 @@ if letter is the current letter, remove the letter
      player wins 
 ```
 
-### Further - Randomize words
+### Randomize words
 -randomize the word display on the screen
 
-### Further - allow players to play again
+### allow players to play again
 - When the game ends, allow players to play again
 
-### Further - Keep a score for the player
+###  Keep a score for the player
 - The player gains a score if they click on the correct letters
 - deduct the score when the player click on the wrong letter
 
-### Further - Add a life for the player
-- if the player enters the wrong word, the player loses a life and the game will lose the game.
+### Display the score
+- Display the score of the player when the game ends.
+
+###Add a life for the player
+- if the player clicks the wrong letter, the player loses a life and if there are none left, the player loses
+- Include the scores for the health left when the player wins the game
+
+###Add sounds 
+- Add a sound when player clicks on something
 
 ### Further - Add a timer for the player
 - if the player runs out of time, the player loses.
 - validate that timer does not start unless the player clicks on the start button 
 - setInterval() only on click
 - modify start button to reset everything to original timing
+- Include the time as scores to be added every level of the game
 
-### Further - Display the score
-- Display the score of the player when the game ends.
-
-### Further - Add sounds 
-- Add a sound when player clicks on something
-```
-var clickStartSound =function(src) {
-  this.sound = document.createElement("audio");
-  this.sound.src = src;
-  this.sound.setAttribute("preload", "auto");
-  this.sound.setAttribute("controls", "none");
-  this.sound.style.display = "none";
-  document.body.appendChild(this.sound);
-  this.play = function(){
-    this.sound.play();
-  }
-  this.stop = function(){
-    this.sound.pause();
-  }
-  ```
-
-### Further - Request a list of words
-- Get a list of words using API
-- Research the API to use from `https://github.com/public-apis/public-apis`
-- ensure list of words available to ensure that the words are available in case API does not work
-
-### Further - Difficulty level
+### Difficulty level
 - ensure the word length increases as the level progresses
 - ensure the word length is limited
 - Make the game harder as the player progresses i.e the letters become invisible and visible and letters moving faster across the screen
