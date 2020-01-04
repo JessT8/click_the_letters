@@ -57,6 +57,7 @@ var setGlobalVariable = function(){
     display.classList.add("hide");
     pos = [[],[],[]];
     movingLetters = document.querySelectorAll(".letters");
+    //clear all time related functions i.e. timer, moving of div and creation of div
     stop = true;
     time = 60;
     score = 0;
@@ -99,7 +100,6 @@ var minusHealth= function(){
 }
 //check letters clicked
 var checkLetter = function(){
-      var correctLetter = false;
       var soundEffect;
       //if current letter click is the letter in the array
       if(this.innerHTML === wordArray[0].toUpperCase()){
@@ -115,9 +115,11 @@ var checkLetter = function(){
         soundEffect = new Audio("Audio/wrong.m4a");
         minusHealth();
       }
+      //hide letter div and play sound effect
       this.classList.add("hide");
       soundEffect.play();
 
+      //call function to check if game ended
       var displayEndGame = endGame();
       if(displayEndGame){
         //final score calculation including health
@@ -125,11 +127,11 @@ var checkLetter = function(){
         startingHeader.innerText = "You won!\nTotal score : "+ score +"\nPlay again?";
         startEvent();
       }
+      //check if health points left is 0
       if(healthPoints <= 0){
         startingHeader.innerText = "You ran out of life!\nTotal score : "+ score +"\nPlay again?"
         startEvent();
       }
-      return correctLetter;
 }
 
 var setColor = function(){
@@ -197,7 +199,6 @@ var createLetters = function(){
         //clear when created 6 div to use and reuse
         if(movingLetters.length >= 6 || stop){
               clearInterval(id);
-              console.log(stop);
         }
         else{
             createLetterDiv();
@@ -230,7 +231,8 @@ var moveLetter = function(){
                             j = 0;
                     }
                     else{
-                            pos[i][j] += level;
+                        //setting of speed of letters moving
+                            pos[i][j] += speed;
                             letter.style.left = pos[i][j] + 'px';
                         }
                 }
@@ -279,43 +281,3 @@ var timer = function(){
 }
 setGlobalVariable();
 startEvent();
-
-
-
-
-
-
-
-
-
-// var responseHandler = function() {
-//   console.log("response text", this.responseText);
-//   var response = JSON.parse( this.responseText );
-//    console.log( response );
-// };
-
-// var requestFailed = function(){
-//   console.log("response text", this.responseText);
-//   console.log("status text", this.statusText);
-//   console.log("status code", this.status);
-// };
-
-// var doSubmit = function(event){
-//     var input = document.querySelector('#url');
-//     var  url = "https://api.wordnik.com/v4/words.json/randomWords?hasDictionaryDef=true&maxCorpusCount=-1&minDictionaryCount=1&maxDictionaryCount=-1&minLength="+5+"&maxLength="+5+"&limit=10";//&api_key=YOURAPIKEY";
-
-//         // make a new request
-//     var request = new XMLHttpRequest();
-
-//     // listen for the request response
-//     request.addEventListener("load", responseHandler);
-//     request.addEventListener("error", requestFailed);
-
-//     // ready the system by calling open, and specifying the url
-//     request.open("GET", url);
-
-//     // send the request
-//     request.send();
-// }
-
-// doSubmit();
