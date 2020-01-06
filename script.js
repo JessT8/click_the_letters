@@ -75,6 +75,7 @@ var setGlobalVariable = function(){
 
 }
 
+//make game easier
 var setReplaceLetterArray = function(){
     replacedLetters = letters.slice();
     //replace some letters with letter needed
@@ -242,10 +243,16 @@ var moveLetter = function(){
                 }
         }
 }
+
+var animationBeforeStartGame = function(){
+     startPage.style.animationPlayState= "running";
+     startPage.style.WebkitAnimationPlayState = "running";
+      setTimeout(startGame, 800);
+}
 var startGame= function(){
-
+    startPage.style.animationPlayState= "paused";
+    startPage.style.WebkitAnimationPlayState = "paused";
     startPage.classList.add("hide");
-
     display.classList.remove("hide");
     gameFactors.classList.remove("hide");
     rowContainers.classList.remove('hide');
@@ -255,10 +262,9 @@ var startGame= function(){
     moveLetter();
     timer();
 }
-startButton.addEventListener("click",startGame);
 
 var startEvent = function(){
-     startPage.classList.remove("hide");
+    startPage.classList.remove("hide");
      display.classList.add("hide");
      setGlobalVariable();
      displayText();
@@ -279,5 +285,7 @@ var timer = function(){
        }
     }
 }
+
+startButton.addEventListener("click", animationBeforeStartGame);
 setGlobalVariable();
 startEvent();
