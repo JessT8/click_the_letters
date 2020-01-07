@@ -15,6 +15,7 @@ var display = document.querySelector("#gameStarted");
 var levelDisplay = document.querySelector("#levelHeader");
 var displayLettersLeft = document.querySelector("#lettersLeft");
 var displayClicked = document.querySelector("#lettersClicked");
+var timerAnimation = document.querySelector("#animateTime");
 
 //row containers contain all the animated letters
 var rowContainers = document.querySelector(".rowContainer");
@@ -52,7 +53,6 @@ var setGlobalVariable = function(){
         row.innerHTML = "";
         rows.push(row);
     }
-
     rowContainers.classList.add('hide');
     display.classList.add("hide");
     pos = [[],[],[]];
@@ -72,7 +72,8 @@ var setGlobalVariable = function(){
     health.innerHTML = "❤️ ❤️ ❤️";
     healthArray = health.innerHTML.split(" ")
     scoreDisplay.innerHTML = "Score : 0";
-
+    //set Animation
+    stopTimerAnimation();
 }
 
 //make game easier
@@ -158,6 +159,21 @@ var createLetterDiv = function(){
             rowContainers = document.querySelector(".rowContainer");
             movingLetters = document.querySelectorAll(".letters");
 }
+
+// var startTimerAnimation= function(){
+//     window.requestAnimationFrame(function(){
+//         timerAnimation.style.animationPlayState= "running";
+//         timerAnimation.style.WebkitAnimationPlayState = "running";
+//     });
+// }
+var stopTimerAnimation = function(){
+     timerAnimation.style.animation = "none";
+}
+var startTimerAnimation = function () {
+     window.requestAnimationFrame(function(){
+                timerAnimation.style.animation = 'countdown 60s 1 linear forwards';
+            });
+}
 //end game when all letters have been entered
 var endGame = function() {
     var gameEnded = false;
@@ -177,6 +193,8 @@ var endGame = function() {
             displayText();
             levelDisplay.innerHTML = "Level "+ level;
             speed = (level+1) * 0.5;
+            stopTimerAnimation();
+            startTimerAnimation();
            }
             }
         else{
@@ -209,7 +227,6 @@ var createLetters = function(){
 }
 
 var moveLetter = function(){
-
         var id =  setInterval(movingAnimation, 5);
         function movingAnimation() {
             if(!stop){
@@ -249,6 +266,7 @@ var animationBeforeStartGame = function(){
      startPage.style.WebkitAnimationPlayState = "running";
       setTimeout(startGame, 800);
 }
+
 var startGame= function(){
     startPage.style.animationPlayState= "paused";
     startPage.style.WebkitAnimationPlayState = "paused";
@@ -261,6 +279,7 @@ var startGame= function(){
     stop = false;
     moveLetter();
     timer();
+    startTimerAnimation();
 }
 
 var startEvent = function(){
@@ -280,12 +299,12 @@ var timer = function(){
                     startEvent();
             }
         }else{
-        time--;
-        displayTime.innerText = time;
-       }
+            time--;
+            displayTime.innerText = time;
+        }
     }
 }
 
-startButton.addEventListener("click", animationBeforeStartGame);
-setGlobalVariable();
-startEvent();
+ startButton.addEventListener("click", animationBeforeStartGame);
+ setGlobalVariable();
+ startEvent();
